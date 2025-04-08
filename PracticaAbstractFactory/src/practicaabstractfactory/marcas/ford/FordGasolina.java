@@ -4,16 +4,16 @@
  */
 package practicaabstractfactory.marcas.ford;
 
-import practicaabstractfactory.componentes.Gasolina;
+import practicaabstractfactory.componentes.Ford;
 
 /**
  *
  * @author Antonio
  */
-public class FordGasolina extends Gasolina {
+public class FordGasolina extends Ford {
 
-    public FordGasolina(String marca, String modelo, int cv, int consumo, int plazas, float precio) {
-        super(marca, modelo, cv, consumo, plazas, precio);
+    public FordGasolina(String modelo, String tipo, int cv, int consumo, int plazas, float precio, float cc) {
+        super(modelo, tipo, cv, consumo, plazas, precio, cc);
     }
 
     @Override

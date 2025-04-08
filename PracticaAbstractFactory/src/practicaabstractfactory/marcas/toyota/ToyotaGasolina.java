@@ -4,16 +4,16 @@
  */
 package practicaabstractfactory.marcas.toyota;
 
-import practicaabstractfactory.componentes.Gasolina;
+import practicaabstractfactory.componentes.Toyota;
 
 /**
  *
  * @author Antonio
  */
-public class ToyotaGasolina extends Gasolina {
+public class ToyotaGasolina extends Toyota {
 
-    public ToyotaGasolina(String marca, String modelo, int cv, int consumo, int plazas, float precio) {
-        super(marca, modelo, cv, consumo, plazas, precio);
+    public ToyotaGasolina(String modelo, String tipo, int cv, int consumo, int plazas, float precio, float cc) {
+        super(modelo, tipo, cv, consumo, plazas, precio, cc);
     }
 
     @Override
@@ -22,3 +22,4 @@ public class ToyotaGasolina extends Gasolina {
     }
     
 }
+

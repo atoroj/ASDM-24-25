@@ -4,21 +4,21 @@
  */
 package practicaabstractfactory.marcas.ford;
 
-import practicaabstractfactory.componentes.Diesel;
+import practicaabstractfactory.componentes.Ford;
 
 /**
  *
  * @author Antonio
  */
-public class FordDiesel extends Diesel {
+public class FordDiesel extends Ford {
 
-    public FordDiesel(String marca, String modelo, int cv, int consumo, int plazas, float precio) {
-        super(marca, modelo, cv, consumo, plazas, precio);
+    public FordDiesel(String modelo, String tipo, int cv, int consumo, int plazas, float precio, float cc) {
+        super(modelo, tipo, cv, consumo, plazas, precio, cc);
     }
 
     @Override
     public void mostrarCaracteristicas() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("Automovil gasolina");
     }
     
 }

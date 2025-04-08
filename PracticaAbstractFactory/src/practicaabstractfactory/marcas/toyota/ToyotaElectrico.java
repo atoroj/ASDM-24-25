@@ -4,16 +4,16 @@
  */
 package practicaabstractfactory.marcas.toyota;
 
-import practicaabstractfactory.componentes.Electrico;
+import practicaabstractfactory.componentes.Toyota;
 
 /**
  *
  * @author Antonio
  */
-public class ToyotaElectrico extends Electrico {
+public class ToyotaElectrico extends Toyota {
 
-    public ToyotaElectrico(String marca, String modelo, int cv, int autonomia, int tiempoRecarga, int plazas, float precio) {
-        super(marca, modelo, cv, autonomia, tiempoRecarga, plazas, precio);
+    public ToyotaElectrico(String modelo, String tipo, int cv, int autonomiaElectrica, int recarga, int plazas, float precio) {
+        super(modelo, tipo, cv, autonomiaElectrica, recarga, plazas, precio);
     }
 
     @Override

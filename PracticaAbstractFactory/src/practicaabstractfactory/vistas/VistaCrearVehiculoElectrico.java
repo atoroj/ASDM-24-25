@@ -4,18 +4,37 @@
  */
 package practicaabstractfactory.vistas;
 
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+import practicaabstractfactory.componentes.Ford;
+import practicaabstractfactory.componentes.Seat;
+import practicaabstractfactory.componentes.Toyota;
+import practicaabstractfactory.factory.Fabrica;
+import practicaabstractfactory.factory.FabricaVehiculoElectrico;
+
 /**
  *
  * @author Antonio
  */
 public class VistaCrearVehiculoElectrico extends javax.swing.JDialog {
 
+    private ArrayList<Ford> ford;
+    private ArrayList<Toyota> toyota;
+    private ArrayList<Seat> seat;
+    private VistaCatalogo vistaCatalogo;
     /**
      * Creates new form VistaCrearVehiculo
      */
-    public VistaCrearVehiculoElectrico(java.awt.Frame parent, boolean modal) {
+    public VistaCrearVehiculoElectrico(java.awt.Frame parent, boolean modal, ArrayList<Ford> ford, ArrayList<Toyota> toyota, ArrayList<Seat> seat) {
         super(parent, modal);
         initComponents();
+        this.ford = ford;
+        this.toyota = toyota;
+        this.seat = seat;
+        String[] nuevosValores = {"Ford", "Toyota", "Seat"};
+        marcaCBox.setModel(new DefaultComboBoxModel<>(nuevosValores));
+        
     }
 
     /**
@@ -40,7 +59,7 @@ public class VistaCrearVehiculoElectrico extends javax.swing.JDialog {
         autonomiaTxtField = new javax.swing.JTextField();
         tiempoRecargaTxtField = new javax.swing.JTextField();
         precioTxtField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        anadirCoche = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         plazasTxtField = new javax.swing.JTextField();
 
@@ -80,10 +99,10 @@ public class VistaCrearVehiculoElectrico extends javax.swing.JDialog {
             }
         });
 
-        jButton1.setText("Añadir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        anadirCoche.setText("Añadir");
+        anadirCoche.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                anadirCocheActionPerformed(evt);
             }
         });
 
@@ -113,7 +132,7 @@ public class VistaCrearVehiculoElectrico extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, Short.MAX_VALUE)
-                                .addComponent(jButton1)
+                                .addComponent(anadirCoche)
                                 .addGap(21, 21, 21))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(121, 121, 121)
@@ -173,7 +192,7 @@ public class VistaCrearVehiculoElectrico extends javax.swing.JDialog {
                     .addComponent(jLabel7)
                     .addComponent(precioTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(anadirCoche)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -184,9 +203,54 @@ public class VistaCrearVehiculoElectrico extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_marcaCBoxActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void anadirCocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirCocheActionPerformed
+        try {
+            Fabrica fabricaElectrico = new FabricaVehiculoElectrico();
+            String marca = (String) marcaCBox.getSelectedItem();
+            String modelo = modeloTxtField.getText();
+            String tipo = "Eléctrico";
+            int cv = Integer.parseInt(cvTxtField.getText());
+            int autonomia = Integer.parseInt(autonomiaTxtField.getText());
+            int tiempoRecarga = Integer.parseInt(tiempoRecargaTxtField.getText());
+            int plazas = Integer.parseInt(plazasTxtField.getText());
+            float precio = Float.parseFloat(precioTxtField.getText());
+            float cc = -1f;
+
+            switch (marca) {
+                case "Ford":
+                    Ford nuevoFord = fabricaElectrico.creaFord(modelo, tipo, cv, -1, autonomia, tiempoRecarga, plazas, precio, cc);
+                    ford.add(nuevoFord);
+                    vistaCatalogo = new VistaCatalogo(seat, toyota, ford);
+                    break;
+                case "Toyota":
+                    Toyota nuevoToyota = fabricaElectrico.creaToyota(modelo, tipo, cv, -1, autonomia, tiempoRecarga, plazas, precio, cc);
+                    toyota.add(nuevoToyota);
+                    vistaCatalogo = new VistaCatalogo(seat, toyota, ford);
+                    break;
+                case "Seat":
+                    Seat nuevoSeat = fabricaElectrico.creaSeat(modelo, tipo, cv, -1, autonomia, tiempoRecarga, plazas, precio, cc);
+                    seat.add(nuevoSeat);
+                    vistaCatalogo = new VistaCatalogo(seat, toyota, ford);
+                    break;
+                default:
+                    System.out.println("Marca no reconocida.");
+            }
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Vehículo eléctrico añadido correctamente.");
+            this.dispose();
+            vistaCatalogo = new VistaCatalogo(seat, toyota, ford);
+            vistaCatalogo.setVisible(true);
+            modeloTxtField.setText("");
+            cvTxtField.setText("");
+            autonomiaTxtField.setText("");
+            tiempoRecargaTxtField.setText("");
+            plazasTxtField.setText("");
+            precioTxtField.setText("");
+            
+        } catch (NumberFormatException ex) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, rellena todos los campos numéricos correctamente.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_anadirCocheActionPerformed
 
     private void modeloTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeloTxtFieldActionPerformed
         // TODO add your handling code here:
@@ -202,9 +266,9 @@ public class VistaCrearVehiculoElectrico extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton anadirCoche;
     private javax.swing.JTextField autonomiaTxtField;
     private javax.swing.JTextField cvTxtField;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

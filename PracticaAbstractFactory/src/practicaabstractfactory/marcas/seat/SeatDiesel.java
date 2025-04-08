@@ -4,16 +4,16 @@
  */
 package practicaabstractfactory.marcas.seat;
 
-import practicaabstractfactory.componentes.Diesel;
+import practicaabstractfactory.componentes.Seat;
 
 /**
  *
  * @author Antonio
  */
-public class SeatDiesel extends Diesel {
+public class SeatDiesel extends Seat {
 
-    public SeatDiesel(String marca, String modelo, int cv, int consumo, int plazas, float precio) {
-        super(marca, modelo, cv, consumo, plazas, precio);
+    public SeatDiesel(String modelo, String tipo, int cv, int consumo, int plazas, float precio, float cc) {
+        super(modelo, tipo, cv, consumo, plazas, precio, cc);
     }
 
     @Override

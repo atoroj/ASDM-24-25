@@ -4,16 +4,16 @@
  */
 package practicaabstractfactory.marcas.ford;
 
-import practicaabstractfactory.componentes.Hibrido;
+import practicaabstractfactory.componentes.Ford;
 
 /**
  *
  * @author Antonio
  */
-public class FordHibrido extends Hibrido {
+public class FordHibrido extends Ford {
 
-    public FordHibrido(String marca, String modelo, int cv, int consumo, int autonomiaElectrica, int plazas, float precio) {
-        super(marca, modelo, cv, consumo, autonomiaElectrica, plazas, precio);
+    public FordHibrido(String modelo, String tipo, int cv, int consumo, int autonomiaElectrica, int plazas, float precio, float cc) {
+        super(modelo, tipo, cv, consumo, autonomiaElectrica, plazas, precio, cc);
     }
 
     @Override

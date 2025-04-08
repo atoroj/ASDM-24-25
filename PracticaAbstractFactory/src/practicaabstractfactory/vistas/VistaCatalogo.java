@@ -5,88 +5,60 @@
 package practicaabstractfactory.vistas;
 
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import practicaabstractfactory.componentes.Diesel;
-import practicaabstractfactory.componentes.Electrico;
-import practicaabstractfactory.componentes.Gasolina;
-import practicaabstractfactory.componentes.Hibrido;
+import practicaabstractfactory.componentes.Ford;
+import practicaabstractfactory.componentes.Seat;
+import practicaabstractfactory.componentes.Toyota;
 
 /**
  *
  * @author Antonio
  */
-
 public class VistaCatalogo extends javax.swing.JFrame {
+
+    private ArrayList<Ford> ford;
+    private ArrayList<Toyota> toyota;
+    private ArrayList<Seat> seat;
 
     /**
      * Creates new form VistaCatalogo
      */
-    public VistaCatalogo(ArrayList<Diesel> diesel, ArrayList<Gasolina> gasolina, ArrayList<Hibrido> hibrido, ArrayList<Electrico> electrico) {
+    public VistaCatalogo(ArrayList<Seat> seat, ArrayList<Toyota> toyota, ArrayList<Ford> ford) {
         initComponents();
+        this.ford = ford;
+        this.toyota = toyota;
+        this.seat = seat;
         String cadenaPrecio;
         float precio;
-        String[] columnas = {"Marca", "Tipo", "Modelo", "CV", "Plazas", "Precio", "Ver"};
+        String[] filtrosTipo = {"Todos", "Diesel", "Gasolina", "Híbrido", "Eléctrico"};
+        String[] filtrosMarca = {"Todos", "Seat", "Toyota", "Ford"};
+        filtroMarcaCombox.setModel(new DefaultComboBoxModel<>(filtrosMarca));
+        filtroTipoCombox.setModel(new DefaultComboBoxModel<>(filtrosTipo));
+        String[] columnas = {"Marca", "Tipo", "Modelo", "CV", "Plazas", "Precio"};
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
 
-        for (Diesel d : diesel) {
-            precio = d.getPrecio();
-            if(d.getMarca().equals("Ford")){
-                precio = (float) (d.getPrecio() + (d.getPrecio() * 0.3)); //Aplicando aranceles
-                cadenaPrecio = precio + "€";
-            }else if(d.getMarca().equals("Toyota")){
-                cadenaPrecio = precio + "¥";
-            }else{
-                cadenaPrecio = precio + "€";
-            }
-            Object[] fila = {d.getMarca(), "Diesel", d.getModelo(), d.getCv(), d.getPlazas(), cadenaPrecio};
+        for (Seat s : seat) {
+            Object[] fila = {"Seat", s.getTipo(), s.getModelo(), s.getCv(), s.getPlazas(), s.getPrecio() + "€"};
             modelo.addRow(fila);
         }
 
-        for (Gasolina g : gasolina) {
-            precio = g.getPrecio();
-            if(g.getMarca().equals("Ford")){
-                precio = (float) (g.getPrecio() + (g.getPrecio() * 0.3)); //Aplicando aranceles
-                cadenaPrecio = precio + "€";
-            }else if(g.getMarca().equals("Toyota")){
-                cadenaPrecio = precio + "¥";
-            }else{
-                cadenaPrecio = precio + "€";
-            }
-            Object[] fila = {g.getMarca(), "Gasolina", g.getModelo(), g.getCv(), g.getPlazas(), cadenaPrecio};
+        for (Toyota t : toyota) {
+            Object[] fila = {"Toyota", t.getTipo(), t.getModelo(), t.getCv(), t.getPlazas(), t.getPrecio() + "¥"};
             modelo.addRow(fila);
         }
 
-        for (Hibrido h : hibrido) {
-            precio = h.getPrecio();
-            if(h.getMarca().equals("Ford")){
-                precio = (float) (h.getPrecio() + (h.getPrecio() * 0.3)); //Aplicando aranceles
-                cadenaPrecio = precio + "€";
-            }else if(h.getMarca().equals("Toyota")){
-                cadenaPrecio = precio + "¥";
-            }else{
-                cadenaPrecio = precio + "€";
-            }
-            Object[] fila = {h.getMarca(), "Híbrido", h.getModelo(), h.getCv(), h.getPlazas(), cadenaPrecio};
+        for (Ford f : ford) {
+            precio = f.getPrecio();
+            precio = (float) (f.getPrecio() + (f.getPrecio() * 0.3)); //Aplicando aranceles
+            cadenaPrecio = precio + "€";
+            Object[] fila = {"Ford", f.getTipo(), f.getModelo(), f.getCv(), f.getPlazas(), f.getPrecio() + "€" + "+" + precio + "€"};
             modelo.addRow(fila);
         }
-
-        for (Electrico e : electrico) {
-            precio = e.getPrecio();
-            if(e.getMarca().equals("Ford")){
-                precio = (float) (e.getPrecio() + (e.getPrecio() * 0.3)); //Aplicando aranceles
-                cadenaPrecio = precio + "€";
-            }else if(e.getMarca().equals("Toyota")){
-                cadenaPrecio = precio + "¥";
-            }else{
-                cadenaPrecio = precio + "€";
-            }
-            Object[] fila = {e.getMarca(), "Eléctrico", e.getModelo(), e.getCv(), e.getPlazas(), cadenaPrecio};
-            modelo.addRow(fila);
-        }
-
         tablaCatalogo.setModel(modelo);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -100,6 +72,10 @@ public class VistaCatalogo extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCatalogo = new javax.swing.JTable();
         anadirVehiculoBtn = new javax.swing.JButton();
+        filtroTipoCombox = new javax.swing.JComboBox<>();
+        aplicarFiltros = new javax.swing.JButton();
+        filtroMarcaCombox = new javax.swing.JComboBox<>();
+        verDetalles = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -126,34 +102,65 @@ public class VistaCatalogo extends javax.swing.JFrame {
             }
         });
 
+        filtroTipoCombox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        aplicarFiltros.setText("Filtrar");
+        aplicarFiltros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aplicarFiltrosActionPerformed(evt);
+            }
+        });
+
+        filtroMarcaCombox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        verDetalles.setText("Ver detalles");
+        verDetalles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verDetallesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(244, 244, 244))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(anadirVehiculoBtn)
-                        .addGap(36, 36, 36))))
+                .addGap(26, 26, 26)
+                .addComponent(verDetalles)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(anadirVehiculoBtn)
+                .addGap(36, 36, 36))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(filtroMarcaCombox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(filtroTipoCombox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(aplicarFiltros)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(filtroTipoCombox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(aplicarFiltros)
+                    .addComponent(filtroMarcaCombox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(anadirVehiculoBtn)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(anadirVehiculoBtn)
+                    .addComponent(verDetalles))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -166,28 +173,117 @@ public class VistaCatalogo extends javax.swing.JFrame {
              JOptionPane.INFORMATION_MESSAGE, null,
              possibleValues, possibleValues[0]);*/
         String seleccion = (String) JOptionPane.showInputDialog(this, "Que tipo de vehiculo quieres añadir", "Selecciona uno",
-                                    JOptionPane.QUESTION_MESSAGE, null, 
-                                    opciones, opciones[0]);
-        if(seleccion.equals("Diesel")){
-            VistaCrearVehiculoDiesel vistaDiesel = new VistaCrearVehiculoDiesel(this, true);
+                JOptionPane.QUESTION_MESSAGE, null,
+                opciones, opciones[0]);
+        if (seleccion.equals("Diesel")) {
+            this.dispose();
+            VistaCrearVehiculoDiesel vistaDiesel = new VistaCrearVehiculoDiesel(this, true, ford, toyota, seat);
             vistaDiesel.setVisible(true);
-        }else if(seleccion.equals("Gasolina")){
-            VistaCrearVehiculoGasolina vistaGasolina = new VistaCrearVehiculoGasolina(this, true);
+        } else if (seleccion.equals("Gasolina")) {
+            this.dispose();
+            VistaCrearVehiculoGasolina vistaGasolina = new VistaCrearVehiculoGasolina(this, true, ford, toyota, seat);
             vistaGasolina.setVisible(true);
-        }else if(seleccion.equals("Híbrido")){
-            VistaCrearVehiculoHibrido vistaHibrido = new VistaCrearVehiculoHibrido(this, true);
+        } else if (seleccion.equals("Híbrido")) {
+            this.dispose();
+            VistaCrearVehiculoHibrido vistaHibrido = new VistaCrearVehiculoHibrido(this, true, ford, toyota, seat);
             vistaHibrido.setVisible(true);
-        }else{
-            VistaCrearVehiculoElectrico vistaElectrico = new VistaCrearVehiculoElectrico(this, true);
+        } else {
+            this.dispose();
+            VistaCrearVehiculoElectrico vistaElectrico = new VistaCrearVehiculoElectrico(this, true, ford, toyota, seat);
             vistaElectrico.setVisible(true);
         }
+
     }//GEN-LAST:event_anadirVehiculoBtnActionPerformed
+
+    private void aplicarFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aplicarFiltrosActionPerformed
+        String tipo = (String) filtroTipoCombox.getSelectedItem();
+        String marca = (String) filtroMarcaCombox.getSelectedItem();
+        String[] columnas = {"Marca", "Tipo", "Modelo", "CV", "Plazas", "Precio"};
+        DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+
+        if (marca.equals("Todos") || marca.equals("Seat")) {
+            for (Seat s : seat) {
+                if (tipo.equals("Todos") || s.getTipo().equals(tipo)) {
+                    Object[] fila = {"Seat", s.getTipo(), s.getModelo(), s.getCv(), s.getPlazas(), s.getPrecio() + "€"};
+                    modelo.addRow(fila);
+                }
+            }
+        }
+
+        if (marca.equals("Todos") || marca.equals("Toyota")) {
+            for (Toyota t : toyota) {
+                if (tipo.equals("Todos") || t.getTipo().equals(tipo)) {
+                    Object[] fila = {"Toyota", t.getTipo(), t.getModelo(), t.getCv(), t.getPlazas(), t.getPrecio() + "¥"};
+                    modelo.addRow(fila);
+                }
+            }
+        }
+        if (marca.equals("Todos") || marca.equals("Ford")) {
+            for (Ford f : ford) {
+                if (tipo.equals("Todos") || f.getTipo().equals(tipo)) {
+                    float precio = f.getPrecio() + (f.getPrecio() * 0.3f);
+                    Object[] fila = {"Ford", f.getTipo(), f.getModelo(), f.getCv(), f.getPlazas(), f.getPrecio() + "€" + " + " + precio + "€"};
+                    modelo.addRow(fila);
+                }
+            }
+        }
+        tablaCatalogo.setModel(modelo);
+    }//GEN-LAST:event_aplicarFiltrosActionPerformed
+
+    private void verDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verDetallesActionPerformed
+        int filaSeleccionada = tablaCatalogo.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona un vehículo de la tabla.");
+            return;
+        }
+        String marca = (String) tablaCatalogo.getValueAt(filaSeleccionada, 0);
+        String tipo = (String) tablaCatalogo.getValueAt(filaSeleccionada, 1);
+        String modelo = (String) tablaCatalogo.getValueAt(filaSeleccionada, 2);
+
+        Seat seatCoche = null;
+        Toyota toyotaCoche = null;
+        Ford fordCoche = null;
+            
+        
+        switch (marca) {
+            case "Seat":
+                for (Seat s : seat) {
+                    if (s.getModelo().equals(modelo)) {
+                        seatCoche = s;
+                        break;
+                    }
+                }
+                break;
+            case "Toyota":
+                for (Toyota t : toyota) {
+                    if (t.getModelo().equals(modelo)) {
+                        toyotaCoche = t;
+                        break;
+                    }
+                }
+                break;
+            case "Ford":
+                for (Ford f : ford) {
+                    if (f.getModelo().equals(modelo)) {
+                        fordCoche = f;
+                        break;
+                    }
+                }
+                break;
+        }
+        VistaDetalles vistaDetalles = new VistaDetalles(this, true, fordCoche, seatCoche, toyotaCoche);
+        vistaDetalles.setVisible(true);
+    }//GEN-LAST:event_verDetallesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton anadirVehiculoBtn;
+    private javax.swing.JButton aplicarFiltros;
+    private javax.swing.JComboBox<String> filtroMarcaCombox;
+    private javax.swing.JComboBox<String> filtroTipoCombox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaCatalogo;
+    private javax.swing.JButton verDetalles;
     // End of variables declaration//GEN-END:variables
 }

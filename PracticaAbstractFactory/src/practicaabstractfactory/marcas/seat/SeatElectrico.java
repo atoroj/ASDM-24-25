@@ -4,16 +4,16 @@
  */
 package practicaabstractfactory.marcas.seat;
 
-import practicaabstractfactory.componentes.Electrico;
+import practicaabstractfactory.componentes.Seat;
 
 /**
  *
  * @author Antonio
  */
-public class SeatElectrico extends Electrico {
+public class SeatElectrico extends Seat {
 
-    public SeatElectrico(String marca, String modelo, int cv, int autonomia, int tiempoRecarga, int plazas, float precio) {
-        super(marca, modelo, cv, autonomia, tiempoRecarga, plazas, precio);
+    public SeatElectrico(String modelo, String tipo, int cv, int autonomiaElectrica, int recarga, int plazas, float precio) {
+        super(modelo, tipo, cv, autonomiaElectrica, recarga, plazas, precio);
     }
 
     @Override

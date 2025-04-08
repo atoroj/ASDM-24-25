@@ -4,18 +4,35 @@
  */
 package practicaabstractfactory.vistas;
 
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import practicaabstractfactory.componentes.Ford;
+import practicaabstractfactory.componentes.Seat;
+import practicaabstractfactory.componentes.Toyota;
+import practicaabstractfactory.factory.Fabrica;
+import practicaabstractfactory.factory.FabricaVehiculoDiesel;
+import practicaabstractfactory.factory.FabricaVehiculoHibrido;
+
 /**
  *
  * @author Antonio
  */
 public class VistaCrearVehiculoHibrido extends javax.swing.JDialog {
-
+    private ArrayList<Ford> ford;
+    private ArrayList<Toyota> toyota;
+    private ArrayList<Seat> seat;
+    private VistaCatalogo vistaCatalogo;
     /**
      * Creates new form VistaCrearVehiculo
      */
-    public VistaCrearVehiculoHibrido(java.awt.Frame parent, boolean modal) {
+    public VistaCrearVehiculoHibrido(java.awt.Frame parent, boolean modal, ArrayList<Ford> ford, ArrayList<Toyota> toyota, ArrayList<Seat> seat) {
         super(parent, modal);
         initComponents();
+        this.ford = ford;
+        this.toyota = toyota;
+        this.seat = seat;
+        String[] nuevosValores = {"Ford", "Toyota", "Seat"};
+        marcaCBox.setModel(new DefaultComboBoxModel<>(nuevosValores));
     }
 
     /**
@@ -40,7 +57,7 @@ public class VistaCrearVehiculoHibrido extends javax.swing.JDialog {
         autonomiaTxtField = new javax.swing.JTextField();
         consumoTxtField = new javax.swing.JTextField();
         precioTxtField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        anadirCoche = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         plazasTxtField = new javax.swing.JTextField();
 
@@ -80,10 +97,10 @@ public class VistaCrearVehiculoHibrido extends javax.swing.JDialog {
             }
         });
 
-        jButton1.setText("Añadir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        anadirCoche.setText("Añadir");
+        anadirCoche.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                anadirCocheActionPerformed(evt);
             }
         });
 
@@ -111,7 +128,7 @@ public class VistaCrearVehiculoHibrido extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(precioTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(anadirCoche)
                         .addGap(27, 27, 27))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,7 +187,7 @@ public class VistaCrearVehiculoHibrido extends javax.swing.JDialog {
                         .addContainerGap(27, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(anadirCoche)
                         .addContainerGap())))
         );
 
@@ -181,9 +198,50 @@ public class VistaCrearVehiculoHibrido extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_marcaCBoxActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void anadirCocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirCocheActionPerformed
+        try {
+            Fabrica fabricaHibrido = new FabricaVehiculoHibrido();
+
+            String marca = (String) marcaCBox.getSelectedItem();
+            String modelo = modeloTxtField.getText();
+            String tipo = "Hibrido";
+            int cv = Integer.parseInt(cvTxtField.getText());
+            int consumo = Integer.parseInt(consumoTxtField.getText());
+            int autonomiaElectrica = Integer.parseInt(autonomiaTxtField.getText());
+            int plazas = Integer.parseInt(plazasTxtField.getText());
+            float precio = Float.parseFloat(precioTxtField.getText());
+            float cc = 1500f;
+
+            
+            switch (marca) {
+                case "Ford":
+                    Ford nuevoFord = fabricaHibrido.creaFord(modelo, tipo, cv, consumo, autonomiaElectrica, -1, plazas, precio, cc);
+                    ford.add(nuevoFord);
+                    break;
+                case "Toyota":
+                    Toyota nuevoToyota = fabricaHibrido.creaToyota(modelo, tipo, cv, consumo, autonomiaElectrica, -1, plazas, precio, cc);
+                    toyota.add(nuevoToyota);
+                    break;
+                case "Seat":
+                    Seat nuevoSeat = fabricaHibrido.creaSeat(modelo, tipo, cv, consumo, autonomiaElectrica, -1, plazas, precio, cc);
+                    seat.add(nuevoSeat);
+                    break;
+            }
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Vehículo diésel añadido correctamente.");
+            this.dispose();
+            vistaCatalogo.setVisible(true);
+
+            modeloTxtField.setText("");
+            cvTxtField.setText("");
+            consumoTxtField.setText("");
+            plazasTxtField.setText("");
+            precioTxtField.setText("");
+
+        } catch (NumberFormatException ex) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, rellena todos los campos numéricos correctamente.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_anadirCocheActionPerformed
 
     private void modeloTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeloTxtFieldActionPerformed
         // TODO add your handling code here:
@@ -199,10 +257,10 @@ public class VistaCrearVehiculoHibrido extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton anadirCoche;
     private javax.swing.JTextField autonomiaTxtField;
     private javax.swing.JTextField consumoTxtField;
     private javax.swing.JTextField cvTxtField;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
