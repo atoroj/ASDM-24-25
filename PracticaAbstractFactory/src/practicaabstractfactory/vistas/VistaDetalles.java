@@ -25,8 +25,8 @@ public class VistaDetalles extends javax.swing.JDialog {
             tipoTxt.setText("Tipo: " + ford.getTipo());
             cvTxt.setText("CV: " + ford.getCv());
             plazasTxt.setText("Plazas: " + ford.getPlazas());
-            precioTxt.setText("Precio: " + ford.getPrecio()+ "€ + " +(ford.getPrecio()*0.3) + "€");
-            consumoTxt.setText("Consumo: " + ford.getConsumo());
+            precioTxt.setText("Precio: " + (ford.getPrecio()+ford.getPrecio()*0.3) + "€");
+            consumoTxt.setText("Consumo: " + ford.getConsumo() + "L");
             autonomiaTxt.setText("Autonomía Eléctrica: " + ford.getAutonomiaElectrica() + "KM");
             recargaTxt.setText("Recarga: " + ford.getRecarga() + "Min");
             ccTxt.setText("CC: " + ford.getCc());
@@ -36,7 +36,7 @@ public class VistaDetalles extends javax.swing.JDialog {
             cvTxt.setText("CV: " + seat.getCv());
             plazasTxt.setText("Plazas: " + seat.getPlazas());
             precioTxt.setText("Precio: " + seat.getPrecio() + "€" );
-            consumoTxt.setText("Consumo: " + seat.getConsumo());
+            consumoTxt.setText("Consumo: " + seat.getConsumo() + "L");
             autonomiaTxt.setText("Autonomía Eléctrica: " + seat.getAutonomiaElectrica() + "KM");
             recargaTxt.setText("Recarga: " + seat.getRecarga() + "Min");
             ccTxt.setText("CC: " + seat.getCc());
@@ -46,7 +46,7 @@ public class VistaDetalles extends javax.swing.JDialog {
             cvTxt.setText("CV: " + toyota.getCv());
             plazasTxt.setText("Plazas: " + toyota.getPlazas());
             precioTxt.setText("Precio: " + toyota.getPrecio() + "¥");
-            consumoTxt.setText("Consumo: " + toyota.getConsumo());
+            consumoTxt.setText("Consumo: " + toyota.getConsumo() + "L");
             autonomiaTxt.setText("Autonomía Eléctrica: " + toyota.getAutonomiaElectrica() + "KM");
             recargaTxt.setText("Recarga: " + toyota.getRecarga() + "Min");
             ccTxt.setText("CC: " + toyota.getCc());

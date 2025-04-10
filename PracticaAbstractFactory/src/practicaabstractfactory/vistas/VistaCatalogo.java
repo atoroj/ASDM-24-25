@@ -51,9 +51,8 @@ public class VistaCatalogo extends javax.swing.JFrame {
 
         for (Ford f : ford) {
             precio = f.getPrecio();
-            precio = (float) (f.getPrecio() + (f.getPrecio() * 0.3)); //Aplicando aranceles
             cadenaPrecio = precio + "€";
-            Object[] fila = {"Ford", f.getTipo(), f.getModelo(), f.getCv(), f.getPlazas(), f.getPrecio() + "€" + "+" + precio + "€"};
+            Object[] fila = {"Ford", f.getTipo(), f.getModelo(), f.getCv(), f.getPlazas(), f.getPrecio() + "€" + "+" + (f.getPrecio() * 0.3) + "€"};
             modelo.addRow(fila);
         }
         tablaCatalogo.setModel(modelo);

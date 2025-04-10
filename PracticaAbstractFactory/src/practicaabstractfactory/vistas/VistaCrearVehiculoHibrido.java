@@ -230,6 +230,7 @@ public class VistaCrearVehiculoHibrido extends javax.swing.JDialog {
 
             javax.swing.JOptionPane.showMessageDialog(this, "Vehículo diésel añadido correctamente.");
             this.dispose();
+            vistaCatalogo = new VistaCatalogo(seat, toyota, ford);
             vistaCatalogo.setVisible(true);
 
             modeloTxtField.setText("");
