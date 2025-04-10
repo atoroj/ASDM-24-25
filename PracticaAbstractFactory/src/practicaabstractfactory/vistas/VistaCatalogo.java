@@ -33,8 +33,6 @@ public class VistaCatalogo extends javax.swing.JFrame {
         String cadenaPrecio;
         float precio;
         String[] filtrosTipo = {"Todos", "Diesel", "Gasolina", "Híbrido", "Eléctrico"};
-        String[] filtrosMarca = {"Todos", "Seat", "Toyota", "Ford"};
-        filtroMarcaCombox.setModel(new DefaultComboBoxModel<>(filtrosMarca));
         filtroTipoCombox.setModel(new DefaultComboBoxModel<>(filtrosTipo));
         String[] columnas = {"Marca", "Tipo", "Modelo", "CV", "Plazas", "Precio"};
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
@@ -73,8 +71,10 @@ public class VistaCatalogo extends javax.swing.JFrame {
         anadirVehiculoBtn = new javax.swing.JButton();
         filtroTipoCombox = new javax.swing.JComboBox<>();
         aplicarFiltros = new javax.swing.JButton();
-        filtroMarcaCombox = new javax.swing.JComboBox<>();
         verDetalles = new javax.swing.JButton();
+        fordCheckBox = new javax.swing.JCheckBox();
+        seatCheckBox = new javax.swing.JCheckBox();
+        toyotaCheckBox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,12 +110,21 @@ public class VistaCatalogo extends javax.swing.JFrame {
             }
         });
 
-        filtroMarcaCombox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         verDetalles.setText("Ver detalles");
         verDetalles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 verDetallesActionPerformed(evt);
+            }
+        });
+
+        fordCheckBox.setText("Ford");
+
+        seatCheckBox.setText("Seat");
+
+        toyotaCheckBox.setText("Toyota");
+        toyotaCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toyotaCheckBoxActionPerformed(evt);
             }
         });
 
@@ -137,8 +146,12 @@ public class VistaCatalogo extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(filtroMarcaCombox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
+                .addComponent(fordCheckBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(seatCheckBox)
+                .addGap(3, 3, 3)
+                .addComponent(toyotaCheckBox)
+                .addGap(18, 18, 18)
                 .addComponent(filtroTipoCombox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(aplicarFiltros)
@@ -152,7 +165,9 @@ public class VistaCatalogo extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(filtroTipoCombox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(aplicarFiltros)
-                    .addComponent(filtroMarcaCombox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fordCheckBox)
+                    .addComponent(seatCheckBox)
+                    .addComponent(toyotaCheckBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -196,11 +211,12 @@ public class VistaCatalogo extends javax.swing.JFrame {
 
     private void aplicarFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aplicarFiltrosActionPerformed
         String tipo = (String) filtroTipoCombox.getSelectedItem();
-        String marca = (String) filtroMarcaCombox.getSelectedItem();
+        
+        
         String[] columnas = {"Marca", "Tipo", "Modelo", "CV", "Plazas", "Precio"};
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
 
-        if (marca.equals("Todos") || marca.equals("Seat")) {
+        if (seatCheckBox.isSelected()) {
             for (Seat s : seat) {
                 if (tipo.equals("Todos") || s.getTipo().equals(tipo)) {
                     Object[] fila = {"Seat", s.getTipo(), s.getModelo(), s.getCv(), s.getPlazas(), s.getPrecio() + "€"};
@@ -209,7 +225,7 @@ public class VistaCatalogo extends javax.swing.JFrame {
             }
         }
 
-        if (marca.equals("Todos") || marca.equals("Toyota")) {
+        if (toyotaCheckBox.isSelected()) {
             for (Toyota t : toyota) {
                 if (tipo.equals("Todos") || t.getTipo().equals(tipo)) {
                     Object[] fila = {"Toyota", t.getTipo(), t.getModelo(), t.getCv(), t.getPlazas(), t.getPrecio() + "¥"};
@@ -217,7 +233,7 @@ public class VistaCatalogo extends javax.swing.JFrame {
                 }
             }
         }
-        if (marca.equals("Todos") || marca.equals("Ford")) {
+        if (fordCheckBox.isSelected()) {
             for (Ford f : ford) {
                 if (tipo.equals("Todos") || f.getTipo().equals(tipo)) {
                     float precio = f.getPrecio() + (f.getPrecio() * 0.3f);
@@ -274,15 +290,21 @@ public class VistaCatalogo extends javax.swing.JFrame {
         vistaDetalles.setVisible(true);
     }//GEN-LAST:event_verDetallesActionPerformed
 
+    private void toyotaCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toyotaCheckBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_toyotaCheckBoxActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton anadirVehiculoBtn;
     private javax.swing.JButton aplicarFiltros;
-    private javax.swing.JComboBox<String> filtroMarcaCombox;
     private javax.swing.JComboBox<String> filtroTipoCombox;
+    private javax.swing.JCheckBox fordCheckBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JCheckBox seatCheckBox;
     private javax.swing.JTable tablaCatalogo;
+    private javax.swing.JCheckBox toyotaCheckBox;
     private javax.swing.JButton verDetalles;
     // End of variables declaration//GEN-END:variables
 }

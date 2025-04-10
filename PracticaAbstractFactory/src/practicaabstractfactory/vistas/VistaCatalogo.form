@@ -39,8 +39,12 @@
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="filtroMarcaCombox" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+              <Component id="fordCheckBox" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="seatCheckBox" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+              <Component id="toyotaCheckBox" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="filtroTipoCombox" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="aplicarFiltros" min="-2" max="-2" attributes="0"/>
@@ -56,7 +60,9 @@
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="filtroTipoCombox" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="aplicarFiltros" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="filtroMarcaCombox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fordCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="seatCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="toyotaCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="275" max="-2" attributes="0"/>
@@ -131,27 +137,30 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aplicarFiltrosActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JComboBox" name="filtroMarcaCombox">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
     <Component class="javax.swing.JButton" name="verDetalles">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ver detalles"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="verDetallesActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="fordCheckBox">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ford"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="seatCheckBox">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Seat"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="toyotaCheckBox">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Toyota"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toyotaCheckBoxActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
