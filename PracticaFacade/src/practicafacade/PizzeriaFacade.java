@@ -72,7 +72,6 @@ public class PizzeriaFacade implements I_PizzeriaFacade {
         } else {
             System.out.println("Debes ser cliente vip para agregar pizzas al catalogo");
         }
-
     }
 
     @Override
@@ -84,7 +83,7 @@ public class PizzeriaFacade implements I_PizzeriaFacade {
     @Override
     public int iniciarPedido(I_Cliente cliente) {
         I_Pedido pedido;
-        if (clientesRegistrados.contains(cliente)) {
+        if (cliente == null) {
             System.out.println("Error: No se puede iniciar un pedido sin un cliente");
             return -1;
         } else {

@@ -10,9 +10,10 @@ public class PracticaFacade {
         int numPedido = -1;
         I_PizzeriaFacade pizzeria = new PizzeriaFacade();
         I_Cliente cliente = null;
+        boolean clienteIniciado = false;
         int opcMenu = -1;
-        do {            
-            System.out.println("** MENU PIZZERIA **\n1.- Registrar Cliente\n2.- Iniciar Sesion\n3.- Mostrar menu\n4.- Añadir pizza al catalogo\n5.- Iniciar pedido\n6.- Agregar pizza al pedido\n7.- Ver pedido\n8.- Terminar pedido\n0.- Salir");
+        do {
+            System.out.println("\n** MENU PIZZERIA **\n1.- Registrar Cliente\n2.- Iniciar Sesion\n3.- Mostrar menu\n4.- Añadir pizza al catalogo\n5.- Iniciar pedido\n6.- Agregar pizza al pedido\n7.- Ver pedido\n8.- Terminar pedido\n0.- Salir");
             System.out.print("Elija opcion: ");
             opcMenu = scanInt.nextInt();
             while (opcMenu < 0 || opcMenu > 8) {
@@ -25,28 +26,51 @@ public class PracticaFacade {
                     break;
                 case 2:
                     cliente = pizzeria.iniciarCliente();
+                    if(cliente != null){
+                        clienteIniciado = true;
+                    }
                     break;
                 case 3:
                     pizzeria.mostrarMenu();
                     break;
                 case 4:
-                    pizzeria.agregarPizzaAlCatalogo(cliente);
+                    if (clienteIniciado) {
+                        pizzeria.agregarPizzaAlCatalogo(cliente);
+                    } else {
+                        System.out.println("Debes iniciar sesión anteriormente");
+                    }
                     break;
                 case 5:
-                    numPedido = pizzeria.iniciarPedido(cliente);
+                    if (clienteIniciado) {
+                        numPedido = pizzeria.iniciarPedido(cliente);
+                    } else {
+                        System.out.println("Debes iniciar sesión anteriormente");
+                    }
                     break;
                 case 6:
-                    pizzeria.agregarPizzaAlPedido(numPedido);
+                    if (clienteIniciado) {
+                        pizzeria.agregarPizzaAlPedido(numPedido);
+                    } else {
+                        System.out.println("Debes iniciar sesión anteriormente");
+                    }
                     break;
                 case 7:
-                    pizzeria.verPedido(numPedido);
+                    if (clienteIniciado) {
+                        pizzeria.verPedido(numPedido);
+                    } else {
+                        System.out.println("Debes iniciar sesión anteriormente");
+                    }
                     break;
                 case 8:
-                    pizzeria.finalizarPedido(numPedido);
+                    if (clienteIniciado) {
+                        pizzeria.finalizarPedido(numPedido);
+                    } else {
+                        System.out.println("Debes iniciar sesión anteriormente");
+                    }
                     break;
             }
         } while (opcMenu != 0);
-        
+
         /*Scanner sc=new Scanner(System.in);
         I_Menu menu=new Menu();
         String seguir;
@@ -73,6 +97,6 @@ public class PracticaFacade {
         }while(seguir.equalsIgnoreCase("Si"));
         pedido.mostrar_Pedido();
         pedido.tramitar_Pedido();        
-    */
-}
+         */
+    }
 }
