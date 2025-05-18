@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Antonio
  */
-public class AscendenteIterator implements IPizzaIterator {
+public class AscendenteIterator implements I_PizzaIterator {
 
     List<I_Pizza> pizzas;
     List<I_Pizza> ordenadas;

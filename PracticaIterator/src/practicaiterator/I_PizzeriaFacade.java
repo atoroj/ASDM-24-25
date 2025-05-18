@@ -17,5 +17,5 @@ public interface I_PizzeriaFacade {
     public void agregarPizzaAlPedido(int pedido);
     public void verPedido(int pedido);
     public void finalizarPedido(int pedido);
-    public IPizzaIterator creaIterador(String tipo);
+    public I_PizzaIterator creaIterador(String tipo);
 }

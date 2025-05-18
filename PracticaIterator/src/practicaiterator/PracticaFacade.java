@@ -69,11 +69,15 @@ public class PracticaFacade {
                     }
                     break;
                 case 9:
-                    System.out.println("Elija tipo de recorrido: cola, pila, precioasc, preciodesc");
-                    String tipo = scanString.nextLine();
-                    IPizzaIterator iterador = pizzeria.creaIterador(tipo);
-                    while (iterador.tieneSiguiente()) {
-                        System.out.println(iterador.siguiente());
+                    if (clienteIniciado) {
+                        System.out.println("Elija tipo de recorrido: cola, pila, precioasc, preciodesc");
+                        String tipo = scanString.nextLine();
+                        I_PizzaIterator iterador = pizzeria.creaIterador(tipo);
+                        while (iterador.tieneSiguiente()) {
+                            System.out.println(iterador.siguiente());
+                        }
+                    } else {
+                        System.out.println("Debes iniciar sesión anteriormente");
                     }
 
                     break;

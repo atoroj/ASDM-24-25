@@ -12,7 +12,7 @@ import java.util.Queue;
  *
  * @author Antonio
  */
-public class ColaIterator implements IPizzaIterator {
+public class ColaIterator implements I_PizzaIterator {
     
     Queue<I_Pizza> pizzas;
    

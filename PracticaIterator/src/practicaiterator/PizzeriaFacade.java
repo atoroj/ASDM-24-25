@@ -136,7 +136,7 @@ public class PizzeriaFacade implements I_PizzeriaFacade {
     }
 
     @Override
-    public IPizzaIterator creaIterador(String tipo) {
+    public I_PizzaIterator creaIterador(String tipo) {
         switch (tipo) {
             case "cola":
                 return new ColaIterator(menu.listarMenu());

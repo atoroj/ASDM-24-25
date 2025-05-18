@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Antonio
  */
-public class DescendenteIterator implements IPizzaIterator {
+public class DescendenteIterator implements I_PizzaIterator {
     List<I_Pizza> pizzas;
     List<I_Pizza> ordenadas;
     int posicion;

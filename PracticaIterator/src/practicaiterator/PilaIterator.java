@@ -11,7 +11,7 @@ import java.util.Stack;
  *
  * @author Antonio
  */
-public class PilaIterator implements IPizzaIterator {
+public class PilaIterator implements I_PizzaIterator {
     private Stack<I_Pizza> pizzas;
     
     public PilaIterator(List<I_Pizza> lista){
